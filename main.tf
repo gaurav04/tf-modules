@@ -12,7 +12,6 @@ resource "aws_elasticache_parameter_group" "redis_cluster_parameters" {
   }
 }
 
-/*
 resource "aws_elasticache_parameter_group" "redis_cluster_parameters_six" {
   family = "redis6.x"
   name   = "redis-test-params-six"  
@@ -21,7 +20,6 @@ resource "aws_elasticache_parameter_group" "redis_cluster_parameters_six" {
     value = "yes"
   }
 }
-*/
 
 variable "network" {
   
