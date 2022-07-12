@@ -29,10 +29,10 @@ variable "network" {
 resource "aws_elasticache_replication_group" "RedisCluster" {
   node_type                     = "cache.t2.micro"
   port                          = "6379"
-  engine_version                = "${var.network == "dev" ? "6.2.6" : "3.2.6"}"
+  engine_version                = "${var.network == "dev" || var.network == "load" ? "6.2.6" : "3.2.6"}"
   replication_group_description = "Test"
-  replication_group_id          = "redis-test-${var.network}rn"
-  parameter_group_name          = "${var.network == "dev" ? "${aws_elasticache_parameter_group.redis_cluster_parameters_six.name}" : "${aws_elasticache_parameter_group.redis_cluster_parameters.name}"}"
+  replication_group_id          = "redis-test-rn"
+  parameter_group_name          = "${var.network == "dev" || var.network == "load" ? "${aws_elasticache_parameter_group.redis_cluster_parameters_six.name}" : "${aws_elasticache_parameter_group.redis_cluster_parameters.name}"}"
   security_group_ids            = ["sg-5cb87e20"]
   automatic_failover_enabled    = true
   cluster_mode {
