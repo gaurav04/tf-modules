@@ -12,23 +12,26 @@ resource "aws_elasticache_parameter_group" "redis_cluster_parameters" {
   }
 }
 
-resource "aws_elasticache_parameter_group" "redis_cluster_parameters_six" {
+/*
+resource "aws_elasticache_parameter_group" "redis_cluster_parameters_vsix" {
   family = "redis6.x"
-  name   = "redis-test-params-six"  
+  name   = "redis-test-params-vsix"  
   parameter {
     name  = "cluster-enabled"
     value = "yes"
   }
 }
+*/
 
-variable "network" {
-  
+variable "engine_version" {
+  default = "3.2.6"
 }
+
 
 resource "aws_elasticache_replication_group" "RedisCluster" {
   node_type                     = "cache.t2.micro"
   port                          = "6379"
-  engine_version                = "3.2.6"
+  engine_version                = "${var.engine_version == "6.2.6" ? "6.2.6" : "3.2.6"}"
   replication_group_description = "Test"
   replication_group_id          = "redis-test-rn"
   parameter_group_name          = "${aws_elasticache_parameter_group.redis_cluster_parameters.name}"
